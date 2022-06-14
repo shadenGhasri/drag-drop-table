@@ -7,7 +7,7 @@ import update from "immutability-helper";
 const type = "dragableBodyRow";
 
 const DragableBodyRow = ({
-  indext,
+  index,
   moveRow,
   className,
   style,
@@ -37,7 +37,7 @@ const DragableBodyRow = ({
   const [, drag] = useDrag(
     () => ({
       type,
-      item: { indext },
+      item: { index },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -92,24 +92,28 @@ const DragAndDrop = () => {
       movie: "lion",
       duration: 2,
       time: 5,
-    }
+    },
   ]);
   const components = {
-    body:{
-        row: DragableBodyRow,
-    }
+    body: {
+      row: DragableBodyRow,
+    },
   };
 
-  const moveRow = useCallback((dragIndex,hoverIndex)=>{
-    const dragRow = dataRow = data[dragIndex];
-    setData(update(data,{
-        $splice:[
-            [dragIndex,1],[hoverIndex,0,dragRow],
-        ]
-    }))
-
-  },[data])
-    
+  const moveRow = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragRow = data[dragIndex];
+      setData(
+        update(data, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragRow],
+          ],
+        })
+      );
+    },
+    [data]
+  );
 
   return <div></div>;
 };
