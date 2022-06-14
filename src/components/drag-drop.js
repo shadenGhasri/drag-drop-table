@@ -34,6 +34,19 @@ const DragableBodyRow = ({
     }),
     [index]
   );
+  const [,drag] = useDrag(()=> ({
+    type, item:{indext},collect:(monitor)=>({
+        isDragging : monitor.isDragging(),
+    }),
+  }),[index]);
+  drop(drag(ref));
+  return(
+    <tr
+    ref={ref} className={`${className}${isOver? dropClassName : ""}`}
+    style={{cursor:"move", ...style}}
+    {...restProps}
+    ></tr>
+  )
 };
 
 const DragAndDrop = ()=>{
