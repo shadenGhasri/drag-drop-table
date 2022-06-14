@@ -34,24 +34,84 @@ const DragableBodyRow = ({
     }),
     [index]
   );
-  const [,drag] = useDrag(()=> ({
-    type, item:{indext},collect:(monitor)=>({
-        isDragging : monitor.isDragging(),
+  const [, drag] = useDrag(
+    () => ({
+      type,
+      item: { indext },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
     }),
-  }),[index]);
+    [index]
+  );
   drop(drag(ref));
-  return(
+  return (
     <tr
-    ref={ref} className={`${className}${isOver? dropClassName : ""}`}
-    style={{cursor:"move", ...style}}
-    {...restProps}
+      ref={ref}
+      className={`${className}${isOver ? dropClassName : ""}`}
+      style={{ cursor: "move", ...style }}
+      {...restProps}
     ></tr>
-  )
+  );
 };
 
-const DragAndDrop = ()=>{
-    return(
-        <div></div>
-    )
-}
-export default DragAndDrop
+const columns = [
+  {
+    title: "movie's name",
+    dataIndex: "movie",
+    key: "movie",
+  },
+  {
+    title: "Duration",
+    dataIndex: "duration",
+    key: "",
+  },
+  {
+    title: "Time",
+    dataIndex: "time",
+    key: "time",
+  },
+];
+
+const DragAndDrop = () => {
+  const [data, setData] = useState([
+    {
+      key: "1",
+      movie: "God father",
+      duration: 2,
+      time: 3,
+    },
+    {
+      key: "2",
+      movie: "animation",
+      duration: 1,
+      time: 4,
+    },
+    {
+      key: "3",
+      movie: "lion",
+      duration: 2,
+      time: 5,
+    }
+  ]);
+  const components = {
+    body:{
+        row: DragableBodyRow,
+    }
+  };
+
+  const moveRow = useCallback((dragIndex,hoverIndex)=>{
+    const dragRow = dataRow = data[dragIndex];
+    setData(update(data,{
+        $splice:[
+            [dragIndex,1],[hoverIndex,0,dragRow],
+        ]
+    }))
+
+  },[data])
+    
+
+  return <div></div>;
+};
+
+export default DragAndDrop;
