@@ -2,7 +2,10 @@ import DragAndDrop from "./components/drag-drop";
 
 function App() {
   return (
-    <DragAndDrop/>
+    <div className="App">
+      <h3>time table</h3>
+      <DragAndDrop/>
+    </div>
   );
 }
 

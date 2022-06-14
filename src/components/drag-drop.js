@@ -4,7 +4,7 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import update from "immutability-helper";
 
-const type = "dragableBodyRow";
+const type = "DragableBodyRow";
 
 const DragableBodyRow = ({
   index,
@@ -29,7 +29,7 @@ const DragableBodyRow = ({
         };
       },
       drop: (item) => {
-        moveRow(item.indext, index);
+        moveRow(item.index, index);
       },
     }),
     [index]
@@ -115,7 +115,13 @@ const DragAndDrop = () => {
     [data]
   );
 
-  return <div></div>;
+  return (<div className="container mt-5">
+    <DndProvider backend={HTML5Backend}>
+        <Table columns={columns} dataSource={data} components={components} onRow = {(record,index)=>({
+            index,moveRow
+        })} />
+    </DndProvider>
+  </div>);
 };
 
 export default DragAndDrop;
