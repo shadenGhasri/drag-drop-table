@@ -3,6 +3,8 @@ import { Table } from "antd";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import update from "immutability-helper";
+import SetTimes from "./setTime";
+
 
 const type = "DragableBodyRow";
 
@@ -94,6 +96,7 @@ const DragAndDrop = () => {
       time: 5,
     },
   ]);
+  
   const components = {
     body: {
       row: DragableBodyRow,
